@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Recipie;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -42,9 +43,11 @@ Route::get('/search', function () {
 }) -> name('search');
 
 Route::get('/collection', function () {
-    $my_collection = Recipie::all() -> where('owner_email', Auth::user() -> email);
-    return inertia('Saved', ['collection' => $my_collection]);
-}) -> name('collection');
+    $my_collection = DB::table('saved_recipies') ->
+    join('recipies', 'recipies.id', '=', 'saved_recipies.recipie_id')
+    -> get();
+    return inertia('Saved', ['collection' => $my_collection, 'email' => Auth::user() -> email]);
+}) -> name('collection') -> middleware('auth');
 
 Route::get('/profile/view', function () {
     return inertia('Profile/View', ['user' => Auth::user()]);

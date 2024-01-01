@@ -5,6 +5,8 @@ import { Head } from '@inertiajs/react'
 import { createAvatar } from '@dicebear/core'
 import { funEmoji } from '@dicebear/collection'
 import { useMemo } from 'react'
+import DangerButton from '@/Components/DangerButton'
+import {Link} from '@inertiajs/react'
 
 export default function ViewProfile({ user }) {
     const avatar = useMemo(() => {
@@ -23,7 +25,7 @@ export default function ViewProfile({ user }) {
                 <div className='w-full flex flex-col items-center'>
                     <img src={avatar} className='rounded-full '></img>
                     <h1 className='text-2xl pt-2'>{user.name}</h1>
-                    
+                    <Link method='post' as='button' href={route('logout')}><DangerButton>Logout</DangerButton></Link>
                 </div>
 
             </main>
