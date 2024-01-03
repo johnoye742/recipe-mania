@@ -1,0 +1,15 @@
+::-webkit-scrollbar-track {
+    width: 1px !important;
+    background-color: aqua !important;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 4px !important;
+    background-color: black !important;
+}
+
+::-webkit-scrollbar-track-piece {
+    width: 10px !important;
+    background-color: aquamarine;
+}
+

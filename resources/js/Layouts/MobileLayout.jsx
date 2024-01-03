@@ -1,6 +1,7 @@
 import Drawer from '@/Components/BottomDrawer'
 import Navbar from '@/Components/Navbar'
 import { useState } from 'react'
+import './scrollbar.css'
 
 function Mobile({ children, page }) {
     const [d, setD] = useState('hidden')
@@ -17,8 +18,9 @@ function Mobile({ children, page }) {
                     </div>
 
                 </div>
-                { children }
-
+                <div className=' h-[87%] overflow-y-scroll'>
+                    { children }
+                </div>
                 <Navbar page={page} setD={setD} d={d}></Navbar>
 
                 <p className='-bottom-52'></p>

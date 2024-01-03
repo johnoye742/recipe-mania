@@ -9,7 +9,7 @@ class SavedRecipie extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'owner_email',
+        'u_email',
         'recipie_id'
     ];
 }

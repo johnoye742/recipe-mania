@@ -9,7 +9,7 @@ function Drawer({ d, setDis }) {
         title: '',
         description: '',
         ingredients: '',
-        instructions: ''
+        instructions: '',
     })
 
 

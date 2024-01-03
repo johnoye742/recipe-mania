@@ -21,28 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/create-recipie', function (Request $request) {
-        $validatedData = $request -> validate([
-            'title' => 'required|string',
-            'description' => 'required|min:200',
-            'ingredients' => 'required',
-            'instructions' => 'required'
-        ]);
 
-        $data = [
-            'title' => $validatedData['title'],
-            'description' => $validatedData['description'],
-            'ingredients' => $validatedData['ingredients'],
-            'cooking_plan' => $validatedData['instructions'],
-            'owner_email' => Auth::user() -> email
-        ];
-
-        $recipie = new Recipie($data);
-
-        if($recipie -> save()) {
-            return redirect() -> back();
-        }
-    }) -> name('recipie.create');
 
 Route::middleware('auth') -> group(function () {
 
@@ -55,7 +34,7 @@ Route::middleware('auth') -> group(function () {
         Log::alert($validatedData['email']);
 
         $data = [
-            'owner_email' => $validatedData['email'],
+            'u_email' => $validatedData['email'],
             'recipie_id' => $validatedData['id']
         ];
 
@@ -66,4 +45,15 @@ Route::middleware('auth') -> group(function () {
             return redirect() -> back();
         }
     }) -> name('save-recipie');
+
+    Route::post('/delete-saved-recipie', function (Request $request) {
+        $val = $request -> validate(['id' => 'integer|required']);
+
+        $saved_recipie = SavedRecipie::find($val['id']);
+
+        if($saved_recipie -> delete()) {
+            Log::debug('noice');
+            return redirect() -> back();
+        }
+    }) -> name('delete-saved');
 });
