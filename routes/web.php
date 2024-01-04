@@ -6,6 +6,7 @@ use App\Models\SavedRecipie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -39,8 +40,20 @@ Route::get('/recipies/{id}', function ($id) {
     return inertia('RecipiePage', ['recipie' => $recipie]);
 }) -> name('recipie');
 
-Route::get('/search', function () {
-    return inertia('Search', []);
+Route::get('/search', function (Request $request) {
+    $q = $request -> get('q');
+    Log::debug($q);
+    $searched_recipies = [];
+    $recipies = Recipie::all();
+
+    if($q != null) {
+        foreach($recipies as $recipie) {
+            if(str_contains($recipie -> title, $q)) {
+                array_push($searched_recipies, $recipie);
+            }
+        }
+    }
+    return inertia('Search', ['recipies' => $searched_recipies, 'query' => $q]);
 }) -> name('search');
 
 Route::get('/collection', function () {
