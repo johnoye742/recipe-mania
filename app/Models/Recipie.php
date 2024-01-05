@@ -14,6 +14,7 @@ class Recipie extends Model
         'description',
         'ingredients',
         'cooking_plan',
-        'owner_email'
+        'owner_email',
+        'images_url'
     ];
 }

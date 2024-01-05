@@ -10,15 +10,15 @@ function Mobile({ children, page }) {
     return (
         <div className="bg-gray-100 w-full flex flex-col items-center">
 
-            <div className="lg:w-[40%] px-8 py-5 h-[100vh] bg-white relative">
-                <div className="w-full">
+            <div className="w-full px-8 py-5 h-[100vh] bg-white relative">
+                <div className="w-full lg:ml-20">
                     <div className='flex flex-row gap-3'>
                         <i class="fi fi-rr-menu-burger text-2xl"></i>
                         <h1 className='capitalize font-bold text-lg'>{page}</h1>
                     </div>
 
                 </div>
-                <div className=' h-[87%] overflow-y-scroll'>
+                <div className=' lg:ml-20 h-[87%] overflow-y-scroll'>
                     { children }
                 </div>
                 <Navbar page={page} setD={setD} d={d}></Navbar>

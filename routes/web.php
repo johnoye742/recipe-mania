@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -41,20 +42,18 @@ Route::get('/recipies/{id}', function ($id) {
 }) -> name('recipie');
 
 Route::get('/search', function (Request $request) {
-    $q = $request -> get('q');
+    $q = $request->get('q');
     Log::debug($q);
-    $searched_recipies = [];
-    $recipies = Recipie::all();
 
-    if($q != null) {
-        foreach($recipies as $recipie) {
-            if(str_contains($recipie -> title, $q)) {
-                array_push($searched_recipies, $recipie);
-            }
-        }
-    }
+    $searched_recipies = [];
+
+    if($q != null || $q != '')
+    $searched_recipies = Recipie::where('title', 'like', '%' . $q . '%')
+    -> orWhere('ingredients', 'like', '%'.$q.'%')
+    ->get();
+
     return inertia('Search', ['recipies' => $searched_recipies, 'query' => $q]);
-}) -> name('search');
+})->name('search');
 
 Route::get('/collection', function () {
     $my_collection = DB::table('recipies') ->
@@ -82,12 +81,30 @@ Route::post('/create-recipie', function (Request $request) {
 
     ]);
 
+    Log::debug('nahice');
+
+    //UPLOAD a list of files if they exist and add their urls to an array that will be eventually inserted to the table
+    $uploaded_files = [];
+    $files = $request -> get('files');
+
+
+        foreach($files as $file) {
+            $f = Storage::putFile('recipe-photos/', $file);
+            array_push($uploaded_files, asset(Storage::url($f)));
+        }
+
+
+    $uploaded_files = json_encode([
+        'urls' => $uploaded_files
+    ]);
+
     $data = [
         'title' => $validatedData['title'],
         'description' => $validatedData['description'],
         'ingredients' => $validatedData['ingredients'],
         'cooking_plan' => $validatedData['instructions'],
-        'owner_email' => Auth::user() -> email
+        'owner_email' => Auth::user() -> email,
+        'images_url' => $uploaded_files
     ];
 
     $recipie = new Recipie($data);

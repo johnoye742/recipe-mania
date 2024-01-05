@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 function Search({ recipies, user, query }) {
     const [q, setQ] = useState(query);
+    console.log(recipies)
 
     return (
         <Mobile page={'search'}>
