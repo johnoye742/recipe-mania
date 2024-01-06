@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth') -> group(function () {
 
 
-    Route::post('/save', function (Request $request) {
+    Route::post('/save-recipe', function (Request $request) {
         $validatedData = $request -> validate([
             'id' => 'integer|required',
             'email' => 'email|required'
@@ -46,7 +46,7 @@ Route::middleware('auth') -> group(function () {
         if($saved_recipie) {
             return redirect() -> back();
         }
-    }) -> name('recipie.save');
+    }) -> name('save-recipie');
 
     Route::post('/delete-saved-recipie', function (Request $request) {
         $val = $request -> validate(['id' => 'integer|required']);
