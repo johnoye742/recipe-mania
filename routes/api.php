@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth') -> group(function () {
 
 
-    Route::post('/save-recipie', function (Request $request) {
+    Route::post('/save', function (Request $request) {
         $validatedData = $request -> validate([
             'id' => 'integer|required',
             'email' => 'email|required'
