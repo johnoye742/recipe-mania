@@ -46,7 +46,7 @@ Route::middleware('auth') -> group(function () {
         if($saved_recipie) {
             return redirect() -> back();
         }
-    }) -> name('save-recipie');
+    }) -> name('recipie.save');
 
     Route::post('/delete-saved-recipie', function (Request $request) {
         $val = $request -> validate(['id' => 'integer|required']);
