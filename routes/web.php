@@ -57,62 +57,31 @@ Route::get('/search', function (Request $request) {
 
 Route::get('/collection', function () {
     $my_collection = DB::table('recipies') ->
-    rightJoin('saved_recipies', 'saved_recipies.recipie_id', '=', 'recipies.id',)
+    leftJoin('saved_recipies', 'saved_recipies.recipie_id', '=', 'recipies.id',)
     -> where('saved_recipies.u_email', '=', Auth::user() -> email)
     -> get(['*']);
     return inertia('Saved', ['collection' => $my_collection, 'email' => Auth::user() -> email]);
 }) -> name('collection') -> middleware('auth');
+
+Route::get('/collection/{id}', function ($id) {
+    $recipie = DB::table('saved_recipies') ->
+    join('recipies', 'saved_recipies.recipie_id', '=', 'recipies.id',)
+    -> where('saved_recipies.id', '=', $id)
+    -> get(['*']);
+
+    return inertia('RecipiePage', ['recipie' => $recipie[0]]);
+}) -> name('collection.recipie');
 
 Route::get('/profile/view', function () {
     return inertia('Profile/View', ['user' => Auth::user()]);
 }) -> name('view-profile');
 
 Route::get('/truncate', function () {
-    $recipies = SavedRecipie::find(1);
-    return 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quia perspiciatis? Accusantium quam amet laboriosam culpa aliquid illo debitis ex dolorum vitae itaque quo necessitatibus ullam similique cupiditate, expedita facilis!';
+    $recipies = DB::table('saved_recipies');
+    return $recipies -> truncate();
 });
 
-Route::post('/create-recipie', function (Request $request) {
-    $validatedData = $request -> validate([
-        'title' => 'required|string',
-        'description' => 'required|min:200',
-        'ingredients' => 'required',
-        'instructions' => 'required',
 
-    ]);
-
-    Log::debug('nahice');
-
-    //UPLOAD a list of files if they exist and add their urls to an array that will be eventually inserted to the table
-    $uploaded_files = [];
-    $files = $request -> get('files');
-
-
-        foreach($files as $file) {
-            $f = Storage::putFile('recipe-photos/', $file);
-            array_push($uploaded_files, asset(Storage::url($f)));
-        }
-
-
-    $uploaded_files = json_encode([
-        'urls' => $uploaded_files
-    ]);
-
-    $data = [
-        'title' => $validatedData['title'],
-        'description' => $validatedData['description'],
-        'ingredients' => $validatedData['ingredients'],
-        'cooking_plan' => $validatedData['instructions'],
-        'owner_email' => Auth::user() -> email,
-        'images_url' => $uploaded_files
-    ];
-
-    $recipie = new Recipie($data);
-
-    if($recipie -> save()) {
-        return redirect() -> back();
-    }
-}) -> name('recipie.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

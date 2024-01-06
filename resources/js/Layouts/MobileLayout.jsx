@@ -10,7 +10,7 @@ function Mobile({ children, page }) {
     return (
         <div className="bg-gray-100 w-full flex flex-col items-center">
 
-            <div className="w-full px-8 py-5 h-[100vh] bg-white relative">
+            <div className="w-full px-8 py-5 h-[100dvh] bg-white relative">
                 <div className="w-full lg:ml-20">
                     <div className='flex flex-row gap-3'>
                         <i class="fi fi-rr-menu-burger text-2xl"></i>
@@ -18,7 +18,7 @@ function Mobile({ children, page }) {
                     </div>
 
                 </div>
-                <div className=' lg:ml-20 h-[87%] overflow-y-scroll'>
+                <div className=' lg:ml-20 h-[87%] lg:h-[100%] lg:w-[90%] overflow-x-hidden overflow-y-scroll'>
                     { children }
                 </div>
                 <Navbar page={page} setD={setD} d={d}></Navbar>

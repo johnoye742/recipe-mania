@@ -27,8 +27,8 @@ function Search({ recipies, user, query }) {
                         }} className='w-full outline-none outline-0 border-none bg-transparent' placeholder='Search...'></input>
                     </form>
                 </div>
-                <div className='grid grid-cols-2 gap-2'>
-                    { recipies && recipies.map((recipie) => <Recipie email={user && user.email} id={recipie.id} title={recipie.title} img={'https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></Recipie>) }
+                <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
+                    { recipies && recipies.map((recipie) => <Recipie email={user && user.email} id={recipie.id} title={recipie.title} img={ JSON.parse(recipie.images_url) != null ? JSON.parse(recipie.images_url).urls[0] : 'https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></Recipie>) }
                 </div>
             </main>
         </Mobile>

@@ -4,6 +4,14 @@ import TextInput from "./TextInput"
 import TextArea from "./TextArea"
 import { useForm } from "@inertiajs/react"
 
+/**
+ * Renders a Drawer component.
+ *
+ * @param {Object} props - The properties for the Drawer component.
+ * @param {string} props.d - The value of d.
+ * @param {function} props.setDis - The function to set the value of dis.
+ * @return {JSX.Element} The rendered Drawer component.
+ */
 function Drawer({ d, setDis }) {
     const {data, setData, post, errors} = useForm({
         title: '',
@@ -29,12 +37,16 @@ function Drawer({ d, setDis }) {
                     console.log(data)
                     setDis('hidden')
                 }} encType="multipart/form-data">
-                    <input type='file' onChange={(ev) => setData('files', ev.target.files)} multiple></input>
+                    <input type='file' name='files[]' onChange={(ev) => setData('files', ev.target.files)} multiple></input>
                     <TextInput placeholder='Recipie Title' onChange={(ev) => {console.log(ev.target.value);setData('title', ev.target.value)}} className='w-full'></TextInput>
                     <TextInput placeholder='Recipie Description' onChange={(ev) => {setData('description', ev.target.value)}} className='w-full'></TextInput>
                     <TextArea placeholder={'Ingredients'} onChange={(ev) => {setData('ingredients', ev.target.value)}} className='w-full'></TextArea>
                     <TextArea placeholder={'Instructions'} onChange={(ev) => {setData('instructions', ev.target.value)}} className='w-full'></TextArea>
 
+                    {errors.title && <p className="text-red-500">Title is Required</p>}
+                    {errors.description && <p className="text-red-500">Description is Required</p>}
+                    {errors.files && <p className="text-red-500">File is Required</p>}
+                    {errors.instructions && <p className="text-red-500">Instructions is Required</p>}
 
                     <PrimaryButton className="w-fit float-right self-end">Save</PrimaryButton>
                 </form>
