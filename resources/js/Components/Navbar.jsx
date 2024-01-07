@@ -10,7 +10,7 @@ function Navbar({ page, setD, d }) {
             <button onClick={() => {
                 setD('block')
                 console.log(d)
-            }} className='bg-chi-color shadow-lg h-12 w-12 -mt-5 text-white text-center flex flex-col items-center justify-center rounded-full'>
+            }} className='bg-chi-color shadow-lg h-12 w-12 -mt-5 text-black text-center flex flex-col items-center justify-center rounded-full'>
                 <i class="fi fi-rs-plus"></i>
             </button>
             <Link href={route('collection')}><i class={`fi ${page == 'collection' ? `fi fi-ss-bookmark` : 'fi fi-rr-bookmark'}`}></i></Link>

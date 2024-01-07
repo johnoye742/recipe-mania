@@ -1,21 +1,22 @@
 ::-webkit-scrollbar {
-    display:none;
-    width: 5px;
-    background-color: blueviolet;
+    width: 4px;
+    height: 0;
+    margin-left: 20px !important;
+
 }
 
 ::-webkit-scrollbar-track {
     width: 1px !important;
-    background-color: aqua !important;
+    background-color: #3B3486;
 }
 
 ::-webkit-scrollbar-thumb {
     width: 4px !important;
-    background-color: black !important;
+    background-color: #864AF9 !important;
 }
 
 ::-webkit-scrollbar-track-piece {
     width: 10px !important;
-    background-color: aquamarine;
+    border-radius: 15px !important;
 }
 

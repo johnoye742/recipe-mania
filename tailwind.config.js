@@ -16,7 +16,7 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             backgroundColor: {
-                'chi-color': '#9BB8CD'
+                'chi-color': '#F8E559'
             }
         },
     },

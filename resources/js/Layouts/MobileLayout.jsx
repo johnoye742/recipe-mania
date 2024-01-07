@@ -12,13 +12,13 @@ function Mobile({ children, page }) {
 
             <div className="w-full px-8 py-5 h-[100dvh] bg-white relative">
                 <div className="w-full lg:ml-20">
-                    <div className='flex flex-row gap-3'>
-                        <i class="fi fi-rr-menu-burger text-2xl"></i>
+                    <div className='flex flex-row items-center gap-3'>
+                        <img src={location.origin+'/images/logo.png'} className=' h-11 w-12 rounded-xl'></img>
                         <h1 className='capitalize font-bold text-lg'>{page}</h1>
                     </div>
 
                 </div>
-                <div className=' lg:ml-20 h-[87%] lg:h-[100%] lg:w-[90%] overflow-x-hidden overflow-y-scroll'>
+                <div className=' lg:ml-20 pb-14 pr-4 h-[87%] lg:h-[100%] lg:w-[90%]  overflow-y-scroll'>
                     { children }
                 </div>
                 <Navbar page={page} setD={setD} d={d}></Navbar>
