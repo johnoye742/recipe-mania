@@ -76,8 +76,8 @@ Route::get('/profile/view', function () {
     return inertia('Profile/View', ['user' => Auth::user()]);
 }) -> name('view-profile') -> middleware('auth');
 
-Route::get('/truncate', function () {
-    $recipies = DB::table('saved_recipies');
+Route::get('/truncate-recipies', function () {
+    $recipies = DB::table('recipies');
     return $recipies -> truncate();
 });
 

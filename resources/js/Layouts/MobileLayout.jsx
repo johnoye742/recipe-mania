@@ -27,6 +27,8 @@ function Mobile({ children, page }) {
             </div>
 
             <Drawer d={d} setDis={setD}></Drawer>
+
+            <p className='fixed center-0 bottom-1'>Made with by John Oye</p>
         </div>
     )
 }

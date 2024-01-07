@@ -10,7 +10,20 @@ function RecipiePage({ recipie }) {
 
     return (
         <Mobile>
-            <Head title="Recipie"></Head>
+            <Head>
+                <title>{recipie.title}</title>
+                <meta name="description" content={recipie.description} />
+                <meta name="og:description" content={recipie.description} />
+                <meta name="og:title" content={recipie.title} />
+                <meta name="og:image" content={ JSON.parse(recipie.images_url) != null ? JSON.parse(recipie.images_url).urls[0] : 'https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} />
+                <meta name="og:author" content="johnoye742" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={recipie.title} />
+                <meta name="twitter:description" content={recipie.description} />
+                <meta name="twitter:site" content="@johnoye742" />
+                <meta name="twitter:creator" content="@johnoye742" />
+
+            </Head>
 
             <main className="py-8 lg:px-5 w-full">
                 <img className='h-[20em] lg:h-[30em] w-full object-contain rounded-xl' src={ JSON.parse(recipie.images_url) != null ? JSON.parse(recipie.images_url).urls[0] : 'https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}></img>
